@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhelMate Deep Link Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .link-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background: linear-gradient(45deg, #1FAB89, #20c997);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(31, 171, 137, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(31, 171, 137, 0.6);
+            background: linear-gradient(45deg, #20c997, #1FAB89);
+        }
+        
+        .link-button:active {
+            transform: translateY(0);
+        }
+        
+        .secondary-link {
+            background: linear-gradient(45deg, #6c757d, #495057);
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .secondary-link:hover {
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.6);
+            background: linear-gradient(45deg, #495057, #6c757d);
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #1FAB89;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .url-display {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏏 KhelMate</h1>
+        <div class="subtitle">Deep Link Testing Page</div>
+        
+        <div class="info-box">
+            <p><span class="emoji">📱</span><strong>Instructions:</strong></p>
+            <p>1. Make sure KhelMate app is installed on your device</p>
+            <p>2. Click any link below to test deep linking</p>
+            <p>3. The app should open and show an alert confirming the deep link worked</p>
+        </div>
+        
+        <!-- Login Deep Link -->
+        <a href="khelmate://login" class="link-button">
+            <span class="emoji">🔑</span> Open KhelMate Login
+        </a>
+        <div class="url-display">khelmate://login</div>
+        
+        <!-- Signup Deep Link -->
+        <a href="khelmate://signup" class="link-button secondary-link">
+            <span class="emoji">📝</span> Open KhelMate Signup
+        </a>
+        <div class="url-display">khelmate://signup</div>
+        
+        <!-- Home Deep Link -->
+        <a href="khelmate://home" class="link-button">
+            <span class="emoji">🏠</span> Open KhelMate Home
+        </a>
+        <div class="url-display">khelmate://home</div>
+        
+        <!-- Reset Password Deep Link -->
+        <a href="khelmate://reset-password" class="link-button secondary-link">
+            <span class="emoji">🔒</span> Test Password Reset
+        </a>
+        <div class="url-display">khelmate://reset-password</div>
+        
+        <div class="info-box">
+            <p><span class="emoji">💡</span><strong>Expected Behavior:</strong></p>
+            <ul>
+                <li><strong>Login Link:</strong> Shows "Deep Link Test Success!" alert</li>
+                <li><strong>Signup Link:</strong> Shows signup deep link confirmation</li>
+                <li><strong>Home Link:</strong> Shows home deep link confirmation</li>
+                <li><strong>Reset Password:</strong> Shows reset password confirmation</li>
+            </ul>
+        </div>
+        
+        <div class="status" id="status">
+            <p><span class="emoji">🎯</span>Click any link above to test deep linking!</p>
+        </div>
+    </div>
+
+    <script>
+        // Add click tracking for debugging
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                const url = e.target.getAttribute('href');
+                console.log('🔗 Attempting to open deep link:', url);
+                
+                // Show status update
+                document.getElementById('status').innerHTML = 
+                    '<p><span class="emoji">🚀</span>Attempting to open: ' + url + '</p>';
+                
+                // Try to open the link
+                setTimeout(() => {
+                    document.getElementById('status').innerHTML = 
+                        '<p><span class="emoji">⏳</span>If KhelMate didn\'t open, make sure the app is installed!</p>';
+                }, 1000);
+            }
+        });
+        
+        // Show page loaded confirmation
+        window.addEventListener('load', function() {
+            console.log('🎉 Deep link test page loaded successfully');
+        });
+    </script>
+</body>
+</html>
